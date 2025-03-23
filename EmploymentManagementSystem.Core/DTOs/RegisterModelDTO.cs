@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace EmploymentManagementSystem.API.DTOs
+namespace EmploymentManagementSystem.Core.DTOs
 {
     public class RegisterModelDTO
     {

@@ -18,7 +18,7 @@ namespace EmploymentManagementSystem.Infrastructure.Repositories
             _context = context;
         }
 
-        public IEnumerable<Employee> GetEmployeesWithFilter(string name, string jobTitle, decimal? minSalary, decimal? maxSalary)
+        public async Task<IEnumerable<Employee>> GetEmployeesWithFilter(string name, string jobTitle, decimal? minSalary, decimal? maxSalary)
         {
             var query = _context.Employees.AsQueryable();
 

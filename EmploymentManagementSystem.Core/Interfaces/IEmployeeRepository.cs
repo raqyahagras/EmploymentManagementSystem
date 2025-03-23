@@ -10,7 +10,7 @@ namespace EmploymentManagementSystem.Core.Interfaces
 {
     public interface IEmployeeRepository : IGenericRepository<Employee>
     {
-        IEnumerable<Employee> GetEmployeesWithFilter(string name, string jobTitle, decimal? minSalary, decimal? maxSalary);
+        Task<IEnumerable<Employee>> GetEmployeesWithFilter(string name, string jobTitle, decimal? minSalary, decimal? maxSalary);
 
     }
 }

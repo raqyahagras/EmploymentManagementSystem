@@ -13,5 +13,8 @@ namespace EmploymentManagementSystem.Core.Entities
         public string JobTitle { get; set; } = string.Empty;
         public decimal Salary { get; set; }
         public bool IsActive { get; set; } = true;
+        public virtual ICollection<IdentityUserRole<string>> UserRoles { get; set; } = new List<IdentityUserRole<string>>();
+
+
     }
 }

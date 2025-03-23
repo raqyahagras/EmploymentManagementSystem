@@ -20,7 +20,7 @@ namespace EmploymentManagementSystem.Infrastructure.Repositories
             return dbContext.Set<T>().ToList();
         }
 
-        public T GetById(int id)
+        public T GetById(string id)
         {
             return dbContext.Set<T>().Find(id);
         }

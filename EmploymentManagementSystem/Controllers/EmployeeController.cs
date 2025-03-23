@@ -1,4 +1,7 @@
-﻿using EmploymentManagementSystem.Application;
+﻿using EmploymentManagementSystem.API.Attribute;
+using EmploymentManagementSystem.Application;
+using EmploymentManagementSystem.Controllers.Base;
+using EmploymentManagementSystem.Core.DTOs;
 using EmploymentManagementSystem.Core.Entities;
 using EmploymentManagementSystem.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Http;
@@ -8,7 +11,7 @@ namespace EmploymentManagementSystem.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class EmployeeController : ControllerBase
+    public class EmployeeController : AppControllerBase
     {
         private readonly IEmployeeService _employeeService;
 
@@ -16,71 +19,63 @@ namespace EmploymentManagementSystem.API.Controllers
         {
             _employeeService = employeeService;
         }
+        [HasPermission("Employee.View")]
 
-        // Get All Employees
         [HttpGet]
-        public ActionResult<IEnumerable<Employee>> GetEmployees()
+        public async Task<IActionResult> GetEmployees()
         {
-            var employees = _employeeService.GetAllEmployees();
-            return Ok(employees);
+            var employees = await _employeeService.GetAllEmployees();
+            return CreateResponse(employees);
         }
-
-        //  Get Employee by ID
+        [HasPermission("Employee.View")]
         [HttpGet("{id}")]
-        public ActionResult<Employee> GetEmployee(int id)
+        public async Task<ActionResult> GetEmployee(string id)
         {
-            var employee = _employeeService.GetEmployeeById(id);
+            var employee = await _employeeService.GetEmployeeById(id);
             if (employee == null)
                 return NotFound();
 
-            return Ok(employee);
+            return CreateResponse(employee);
         }
+        [HasPermission("Employee.View")]
 
-        //  Filter Employees (Name, JobTitle, Salary Range)
         [HttpGet("filter")]
-        public ActionResult<IEnumerable<Employee>> FilterEmployees(string name, string jobTitle, decimal? minSalary, decimal? maxSalary)
+        public async Task<ActionResult> FilterEmployees(string name, string jobTitle, decimal? minSalary, decimal? maxSalary)
         {
             var spec = new EmployeeSpecification(name, jobTitle, minSalary, maxSalary);
-            var employees = _employeeService.GetFilteredEmployees(spec);
-            return Ok(employees);
+            var employees = await _employeeService.GetFilteredEmployees(spec);
+            return CreateResponse(employees);
         }
 
-        //  Add New Employee
+        [HasPermission("Employee.Create")]
         [HttpPost]
-        public IActionResult AddEmployee([FromBody] Employee employee)
+        public async Task<ActionResult> AddEmployee([FromBody] AddEmployeeModelDTO employee)
         {
-            if (employee == null)
-                return BadRequest("Invalid Employee Data");
+ 
 
-            _employeeService.AddEmployee(employee);
-            return CreatedAtAction(nameof(GetEmployee), new { id = employee.Id }, employee);
+               var emp = await _employeeService.AddEmployee(employee);
+            return CreateResponse(emp);
         }
 
-        //  Update Employee
+        [HasPermission("Employee.Edit")]
         [HttpPut("{id}")]
-        public IActionResult UpdateEmployee(int id, [FromBody] Employee employee)
+        public async Task<ActionResult> UpdateEmployee(string id, [FromBody] EditEmployeeModelDTO employee)
         {
-            if (employee == null || !int.TryParse(employee.Id, out int employeeId) || id != employeeId)
-                return BadRequest("Invalid Employee Data");
+       
 
-            _employeeService.UpdateEmployee(employee);
-            return NoContent();
+            var emp = await _employeeService.UpdateEmployee(employee ,id);
+            return CreateResponse(emp);
         }
 
 
-        //  Delete Employee (Check Active Status)
+        [HasPermission("Employee.Delete")]
         [HttpDelete("{id}")]
-        public IActionResult DeleteEmployee(int id)
+        public async Task<ActionResult> DeleteEmployee(string id)
         {
-            try
-            {
-                _employeeService.DeleteEmployee(id);
-                return NoContent();
-            }
-            catch (InvalidOperationException ex)
-            {
-                return BadRequest(ex.Message);
-            }
+          
+               var emp = await  _employeeService.DeleteEmployee(id);
+                return CreateResponse(emp);
+           
         }
    
 }

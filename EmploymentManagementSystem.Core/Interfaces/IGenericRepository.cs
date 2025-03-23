@@ -6,7 +6,7 @@ namespace EmploymentManagementSystem.Infrastructure.Interfaces
     public interface IGenericRepository<T> where T : class
     {
         IEnumerable<T> GetAll();
-        T GetById(int id);
+        T GetById(string id);
         IEnumerable<T> GetAllWithSpec(ISpecifications<T> spec);
         T GetByIdWithSpec(ISpecifications<T> spec);
         int GetCountBySpec(ISpecifications<T> spec);
