@@ -1,4 +1,5 @@
 
+using EmploymentManagementSystem.Application;
 using EmploymentManagementSystem.Core.Entities;
 using EmploymentManagementSystem.Core.Interfaces;
 using EmploymentManagementSystem.Infrastructure.Data;
@@ -50,7 +51,8 @@ namespace EmploymentManagementSystem
 }
 );
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-
+            builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+            builder.Services.AddScoped<IEmployeeService, EmployeeService>();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

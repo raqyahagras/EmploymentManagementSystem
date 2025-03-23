@@ -11,6 +11,7 @@ namespace EmploymentManagementSystem.Core.Interfaces
         public interface IUnitOfWork:IDisposable
         {
         IGenericRepository<TEntity> Repository<TEntity>() where TEntity : class;
+        IEmployeeRepository Employees { get; }
 
         int Complete();
         }

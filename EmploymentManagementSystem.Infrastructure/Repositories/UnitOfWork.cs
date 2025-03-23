@@ -17,6 +17,7 @@ namespace EmploymentManagementSystem.Infrastructure.Repositories
         public UnitOfWork(ApplicationDbContext context)
         {
             _context = context;
+            Employees = new EmployeeRepository(_context);
         }
 
         public IGenericRepository<TEntity> Repository<TEntity>() where TEntity : class
@@ -27,6 +28,7 @@ namespace EmploymentManagementSystem.Infrastructure.Repositories
             }
             return (IGenericRepository<TEntity>)_repositories[typeof(TEntity)];
         }
+        public IEmployeeRepository Employees { get; private set; }
 
         public int Complete()
         {

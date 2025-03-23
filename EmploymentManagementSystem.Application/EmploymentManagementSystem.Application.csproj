@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\EmploymentManagementSystem.Core\EmploymentManagementSystem.Core.csproj" />
+    <ProjectReference Include="..\EmploymentManagementSystem.Infrastructure\EmploymentManagementSystem.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>

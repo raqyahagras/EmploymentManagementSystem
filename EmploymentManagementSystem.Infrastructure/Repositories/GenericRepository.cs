@@ -1,10 +1,7 @@
 ﻿using EmploymentManagementSystem.Infrastructure.Data;
 using EmploymentManagementSystem.Infrastructure.Interfaces;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static EmploymentManagementSystem.Core.Interfaces.ISpecifications;
 
 namespace EmploymentManagementSystem.Infrastructure.Repositories
@@ -18,7 +15,7 @@ namespace EmploymentManagementSystem.Infrastructure.Repositories
             dbContext = context;
         }
 
-        public IReadOnlyList<T> GetAll()
+        public IEnumerable<T> GetAll()
         {
             return dbContext.Set<T>().ToList();
         }
@@ -28,7 +25,7 @@ namespace EmploymentManagementSystem.Infrastructure.Repositories
             return dbContext.Set<T>().Find(id);
         }
 
-        public IReadOnlyList<T> GetAllWithSpec(ISpecifications<T> spec)
+        public IEnumerable<T> GetAllWithSpec(ISpecifications<T> spec)
         {
             return ApplySpecification(spec).ToList();
         }
@@ -51,17 +48,19 @@ namespace EmploymentManagementSystem.Infrastructure.Repositories
         public void Add(T entity)
         {
             dbContext.Set<T>().Add(entity);
+            dbContext.SaveChanges();
         }
 
         public void Update(T entity)
         {
             dbContext.Set<T>().Update(entity);
+            dbContext.SaveChanges();
         }
 
         public void Delete(T entity)
         {
             dbContext.Set<T>().Remove(entity);
+            dbContext.SaveChanges();
         }
     }
-
 }

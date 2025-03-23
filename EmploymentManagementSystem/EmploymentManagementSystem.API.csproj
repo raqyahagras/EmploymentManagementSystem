@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\EmploymentManagementSystem.Application\EmploymentManagementSystem.Application.csproj" />
     <ProjectReference Include="..\EmploymentManagementSystem.Core\EmploymentManagementSystem.Core.csproj" />
     <ProjectReference Include="..\EmploymentManagementSystem.Infrastructure\EmploymentManagementSystem.Infrastructure.csproj" />
   </ItemGroup>

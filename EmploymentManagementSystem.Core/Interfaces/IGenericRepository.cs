@@ -3,22 +3,15 @@ using static EmploymentManagementSystem.Core.Interfaces.ISpecifications;
 
 namespace EmploymentManagementSystem.Infrastructure.Interfaces
 {
-    public interface IGenericRepository< T> where T : class
+    public interface IGenericRepository<T> where T : class
     {
-        IReadOnlyList<T> GetAll();
-
+        IEnumerable<T> GetAll();
         T GetById(int id);
-
-        IReadOnlyList<T> GetAllWithSpec(ISpecifications<T> spec);
-
+        IEnumerable<T> GetAllWithSpec(ISpecifications<T> spec);
         T GetByIdWithSpec(ISpecifications<T> spec);
-
         int GetCountBySpec(ISpecifications<T> spec);
-
         void Add(T entity);
-
         void Update(T entity);
-
         void Delete(T entity);
     }
 }

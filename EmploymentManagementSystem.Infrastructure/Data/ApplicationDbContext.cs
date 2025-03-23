@@ -28,6 +28,11 @@ namespace EmploymentManagementSystem.Infrastructure.Data
             modelBuilder.Entity<Employee>()
                 .HasIndex(e => e.JobTitle)
                 .HasDatabaseName("IX_Employee_JobTitle");
+
+            modelBuilder.Entity<Employee>()
+               .HasIndex(e => e.Salary)
+               .HasDatabaseName("IX_Employee_Salary");
+
         }
     }
 }
